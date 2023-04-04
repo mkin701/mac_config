@@ -37,6 +37,7 @@ casks=(
     "rectangle"
     "slack"
     "firefox"
+    "font-hack-nerd-font"
     "visual-studio-code"
     "google-drive"
     "postman"
@@ -99,6 +100,16 @@ do
   echo "Installing $cask..."
   brew install --cask $cask
 done
+
+# Configure OhMyZSH
+if ! command -v zsh >/dev/null 2>&1 || [ ! -d "$HOME/.oh-my-zsh" ]; then
+  # Install oh-my-zsh
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
+
+# Configure Nerd Fonts
+brew tap homebrew/cask-fonts
+brew install font-hack-nerd-font
 
 # Configure VS Code Path
 if ! grep -qxF '# Add Visual Studio Code (code)' ~/.zprofile; then
