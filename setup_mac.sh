@@ -64,7 +64,7 @@ echo "Installing homebrew packages..."
 for package in "${packages[@]}"
 do
   echo "Installing $package..."
-  brew install --cask $package
+  brew install $package
 done
 
 # Configure neofetch
