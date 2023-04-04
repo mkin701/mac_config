@@ -19,7 +19,6 @@ packages=(
     "coreutils"
     "pass"
     "watch"
-    "terraform"
     "tfenv"
     "tgenv"
     "saml2aws"
@@ -42,6 +41,26 @@ casks=(
     "google-drive"
     "postman"
 )
+
+code_extensions=(
+  "4ops.packer"
+  "bradlc.vscode-tailwindcss"
+  "esbenp.prettier-vscode"
+  "GitHub.vscode-pull-request-github"
+  "GitLab.gitlab-workflow"
+  "golang.go"
+  "hashicorp.terraform"
+  "monokai.theme-monokai-pro-vscode"
+  "ms-azuretools.vscode-docker"
+  "ms-kubernetes-tools.vscode-kubernetes-tools"
+  "ms-python.isort"
+  "ms-python.python"
+  "ms-python.vscode-pylance"
+  "paulvarache.vscode-taskfile"
+  "redhat.vscode-yaml"
+  "rust-lang.rust-analyzer"
+  "SonarSource.sonarlint-vscode"
+) 
 
 # Install XCode Select
 
@@ -79,4 +98,26 @@ for cask in "${casks[@]}"
 do
   echo "Installing $cask..."
   brew install --cask $cask
+done
+
+# Configure VS Code Path
+if ! grep -qxF '# Add Visual Studio Code (code)' ~/.zprofile; then
+  # Add VS Code bin path
+  echo "Configuring VS Code Path"
+  cat << EOF >> ~/.zprofile
+# Add Visual Studio Code (code)
+export PATH="\$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+EOF
+fi
+
+# Set Path Updates
+
+source ~/.zprofile
+
+# Install VS Code Extensions
+echo "Installing VS Code Extensions..."
+for extension in "${code_extensions[@]}"
+do
+  echo "Installing VS Code Extension $extension..."
+  code --install-extension $extension
 done
